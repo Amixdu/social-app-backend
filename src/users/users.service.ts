@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
@@ -20,7 +19,6 @@ export class UsersService {
   }
 
   findMany(query: FindUsersQueryDto): Promise<User[] | []> {
-    console.log('hello', process.env.DATABASE_USERNAME);
     return this.usersRepository.findBy(query);
   }
 
