@@ -17,6 +17,13 @@ import { User } from './entities/user.entity';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
+  @Post()
+  async create(@Body() body: CreateUserDto): Promise<User | null> {
+    const user = this.userService.create(body);
+    console.log(body);
+    return user;
+  }
+
   @Get()
   find(@Query() query: QueryDto) {
     return this.userService.findMany(query);
@@ -25,12 +32,6 @@ export class UsersController {
   @Get(':id')
   findOneById(@Param('id') id: number): Promise<User | null> {
     return this.userService.findOneById(id);
-  }
-
-  @Post()
-  async create(@Body() body: CreateUserDto): Promise<User | null> {
-    const user = this.userService.create(body);
-    return user;
   }
 
   @Patch(':id')
