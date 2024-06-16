@@ -1,25 +1,30 @@
 import { EntitySchema } from 'typeorm';
 import { User } from './entities/user.entity';
+import { BaseColumnSchema } from '../common/base.schema';
 
 export const UserSchema = new EntitySchema<User>({
   name: 'User',
   target: User,
   columns: {
-    id: {
-      type: Number,
-      primary: true,
-      generated: true,
-    },
+    ...BaseColumnSchema,
     firstName: {
       type: String,
-      name: 'firstname',
+      name: 'first_name',
     },
     lastName: {
       type: String,
-      name: 'lastname',
+      name: 'last_name',
     },
     email: {
       type: String,
+    },
+  },
+  relations: {
+    posts: {
+      type: 'one-to-many',
+      target: 'Post',
+      inverseSide: 'createdBy',
+      cascade: true,
     },
   },
 });
